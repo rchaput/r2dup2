@@ -47,3 +47,32 @@ devtools::install_github("rchaput/r2dup2")
 ```
 
 ## How to use
+
+The main function of this package is `with_redirect_stderr`.
+It can be used to:
+
+* Redirect to a new file (truncates any existing content):
+```r
+with_redirect_stderr(file = "my_new_file.err", {
+  # Place here any command that outputs to stderr
+  system("echo This line will be printed to my_new_file.err >&2")
+  system("echo This line will be printed after the first one >&2")
+})
+```
+
+* Redirect to an existing file (appending new content):
+```r
+with_redirect_stderr(file = "existing_file.err", append = TRUE, {
+  system("echo This line will be appended to existing_file.err >&2")
+  system("echo And this one too >&2")
+})
+```
+
+* Capture stderr to a variable:
+```r
+stderr <- with_redirect_stderr({
+  system("echo The variable stderr will contain this line")
+})
+```
+
+See the documentation `r ?with_redirect_stderr` for more details.

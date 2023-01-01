@@ -1,6 +1,6 @@
 Package: r2dup2
 Title: Redirecting stderr In R
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person("Rémy", "Chaput", , "rchaput.pro@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2233-7566"))
