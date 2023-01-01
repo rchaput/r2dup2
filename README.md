@@ -2,6 +2,10 @@
 
 > Author: <rchaput.pro@gmail.com>
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/rchaput/r2dup2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rchaput/r2dup2/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 ## Description
 
 **r2dup2** is a `R` package that allows you to redirect streams, especially
