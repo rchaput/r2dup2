@@ -130,3 +130,16 @@ test_that("sequential redirections without append work", {
   # Delete file
   unlink(filepath)
 })
+
+
+test_that("redirecting to a variable works", {
+  # Generate a message
+  message <- "This line should be returned by the function"
+  # Capture stderr to a variable, by not specifying the file
+  stderr <- with_redirect_stderr(file = NULL, {
+    helper_echo(message)
+  })
+
+  # Verify that the returned value is the same as message
+  expect_identical(stderr, message)
+})
