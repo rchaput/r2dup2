@@ -4,16 +4,26 @@
 \alias{with_redirect_stderr}
 \title{Temporarily redirect the standard error to a file}
 \usage{
-with_redirect_stderr(expression, file, append = FALSE)
+with_redirect_stderr(expression, file = NULL, append = FALSE)
 }
 \arguments{
 \item{expression}{The code to evaluate while redirecting stderr.}
 
-\item{file}{The file to which all text will be redirected.}
+\item{file}{The file to which all text will be redirected. By default,
+(\code{NULL}), a temporary file is automatically created, and the captured
+text is returned by the function.}
 
 \item{append}{Whether to append to the file, when it already exists.
-By default (false), the file is truncated. If the file does not exist,
-it is created.}
+By default (\code{FALSE}), the file is truncated. If the file does not exist,
+it is created. This argument has no effect when \code{file} is \code{NULL}.}
+}
+\value{
+The return value depends on the \code{file} parameter:
+\itemize{
+\item When \code{file} is \code{NULL}, the function returns the captured text,
+as returned by \code{\link[base:readLines]{base::readLines()}}.
+\item Otherwise, the function does not return anything (an invisible \code{NULL}).
+}
 }
 \description{
 This method allows to capture all texts sent to the \emph{standard error}
@@ -22,7 +32,8 @@ In contrast with \code{\link[utils:capture.output]{utils::capture.output()}}, wh
 the R level and deals with R objects, this method truly redirects the
 stream at a low (system) level.
 Thus, the redirection works for low-level system calls, including
-external processes invoked through \code{\link[base:system]{base::system()}}.
+external processes invoked through \code{\link[base:system]{base::system()}}, \code{\link[base:system2]{base::system2()}},
+or similar.
 }
 \section{Known problems}{
 The redirection does not seem to work when invoked in the R Console
@@ -38,6 +49,10 @@ with_redirect_stderr(file = "test.err", {
 
 with_redirect_stderr(file = "test.err", append = TRUE, {
   system("echo This will not truncate the previous line! >&2")
+})
+
+stderr <- with_redirect_stderr({
+  system("echo Redirecting to a variable also works! >&2")
 })
 }
 
